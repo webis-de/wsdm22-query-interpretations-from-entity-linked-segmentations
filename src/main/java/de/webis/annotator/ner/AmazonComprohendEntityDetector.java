@@ -18,8 +18,8 @@ public class AmazonComprohendEntityDetector implements EntityAnnotator {
     private static AmazonComprehend comprehendClient;
 
     public AmazonComprohendEntityDetector(){
-        System.setProperty("aws.accessKeyId", "AKIAIAHFIMIO7DJJKPDQ");
-        System.setProperty("aws.secretKey", "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");
+        System.setProperty("aws.accessKeyId", "");
+        System.setProperty("aws.secretKey", "");
         AWSCredentialsProvider awsCredentials = DefaultAWSCredentialsProviderChain.getInstance();
 
         comprehendClient = AmazonComprehendClientBuilder.standard()

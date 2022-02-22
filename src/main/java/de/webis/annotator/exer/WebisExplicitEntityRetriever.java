@@ -17,7 +17,7 @@ public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnno
     private final PersistentStore<String, Set<String>> index;
 
     private final ExerStrategy strategy;
-    private Metric entityCommonness;
+    private final Metric entityCommonness;
 
     public WebisExplicitEntityRetriever(ExerStrategy strategy) {
         this.strategy = strategy;

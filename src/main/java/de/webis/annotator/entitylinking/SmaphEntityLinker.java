@@ -12,7 +12,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SmaphEntityLinker implements EntityAnnotator {
     private static URIBuilder uriBuilder;
@@ -31,8 +34,8 @@ public class SmaphEntityLinker implements EntityAnnotator {
                 .setPath("/smaph/annotate");
 
         defaultParams = new ArrayList<>();
-        defaultParams.add(new BasicNameValuePair("google-cse-id", "012830054587856159048:9n3zfh2r6ve"));
-        defaultParams.add(new BasicNameValuePair("google-api-key", "AIzaSyDrxE-i6Qdb1W4JSYNeU6CDl87IA7jepGE"));
+        defaultParams.add(new BasicNameValuePair("google-cse-id", ""));
+        defaultParams.add(new BasicNameValuePair("google-api-key", ""));
 
         jsonMapper = new ObjectMapper();
 
@@ -113,17 +116,15 @@ public class SmaphEntityLinker implements EntityAnnotator {
 
     private void extractAnnotations(Query query, String json, Set<EntityAnnotation> annotations) throws IOException {
         JsonNode node = jsonMapper.readValue(json, JsonNode.class);
-        Iterator<JsonNode> annotationIter = node.get("annotations").iterator();
 
-        while(annotationIter.hasNext()){
+        for (JsonNode jsonNode : node.get("annotations")) {
             EntityAnnotation annotation = new EntityAnnotation();
 
-            JsonNode annoNode = annotationIter.next();
-            annotation.setBegin(annoNode.get("begin").asInt());
-            annotation.setEnd(annoNode.get("end").asInt());
+            annotation.setBegin(jsonNode.get("begin").asInt());
+            annotation.setEnd(jsonNode.get("end").asInt());
             annotation.setMention(query.getText().substring(annotation.getBegin(), annotation.getEnd()));
-            annotation.setUrl(URLDecoder.decode(annoNode.get("url").asText(), "utf-8").replace(" ","_"));
-            annotation.setScore(annoNode.get("score").asDouble());
+            annotation.setUrl(URLDecoder.decode(jsonNode.get("url").asText(), "utf-8").replace(" ", "_"));
+            annotation.setScore(jsonNode.get("score").asDouble());
 
             annotations.add(annotation);
         }
