@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  dexter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dexter:latest
+    ports:
+      - 127.0.0.1:8002:8080
+    restart: always

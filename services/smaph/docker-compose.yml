@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  smaph:
+    build:
+      context: .
+    image: smaph:latest
+    ports:
+      - 127.0.0.1:8005:8080
+    volumes:
+      - smaph-data:/deploy/smaph
+
+volumes:
+  smaph-data:

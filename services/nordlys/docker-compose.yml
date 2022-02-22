@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+  nordlys-mongo:
+    image: mongo:3
+    networks:
+      - nordlys
+    ports:
+    - 127.0.0.1:27018:27017
+  nordlys-elastic:
+    environment:
+      - "discovery.type=single-node"
+    image: elasticsearch:5.6.16
+    networks:
+     - nordlys
+    ports:
+    - 127.0.0.1:9200:9200
+    - 127.0.0.1:9300:9300
+  nordlys-service:
+    build:
+      context: ./service
+    depends_on:
+      - nordlys-mongo
+      - nordlys-elastic
+    image: nordlys-service:latest
+    networks:
+      - nordlys
+    ports:
+    - 127.0.0.1:8004:5000
+    volumes:
+      - nordlys-data:/deploy/nordlys
+
+networks:
+  nordlys:
+    driver: "bridge"
+
+volumes:
+  nordlys-data:

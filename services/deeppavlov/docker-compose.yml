@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  deeppavlov:
+    environment:
+      - CONFIG=/conf/ner_ontonotes_bert.json
+    image: deeppavlov/base-cpu:latest
+    ports:
+      - "127.0.0.1:8006:5000"
+    volumes:
+      - ../deeppavlov:/conf/
