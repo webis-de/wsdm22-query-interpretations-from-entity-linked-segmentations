@@ -22,7 +22,7 @@ public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnno
     public WebisExplicitEntityRetriever(ExerStrategy strategy) {
         this.strategy = strategy;
 
-        index = new PersistentStore<>("data/persistent/wiki-entity-index-old");
+        index = new PersistentStore<>("data/persistent/wiki-entity-index");
         index.setSerializer(StreamSerializer.class);
 
         entityCommonness = EntityCommonness.getInstance();
