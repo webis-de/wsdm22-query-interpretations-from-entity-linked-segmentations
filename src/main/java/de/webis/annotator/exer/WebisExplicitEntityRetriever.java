@@ -11,9 +11,13 @@ import de.webis.metrics.Metric;
 import de.webis.utils.StreamSerializer;
 import org.apache.commons.io.FilenameUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnnotator {
+    private final static String INDEX_PATH = "data/persistent/wiki-entity-index";
+
     private final PersistentStore<String, Set<String>> index;
 
     private final ExerStrategy strategy;
@@ -22,7 +26,15 @@ public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnno
     public WebisExplicitEntityRetriever(ExerStrategy strategy) {
         this.strategy = strategy;
 
-        index = new PersistentStore<>("data/persistent/wiki-entity-index");
+        if(!new File(INDEX_PATH).exists()){
+            try {
+                throw new FileNotFoundException("Index (" + INDEX_PATH + ") does not exist!");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        index = new PersistentStore<>(INDEX_PATH);
         index.setSerializer(StreamSerializer.class);
 
         entityCommonness = EntityCommonness.getInstance();
@@ -77,6 +89,5 @@ public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnno
         if(entityCommonness != null){
             entityCommonness.close();
         }
-
     }
 }
