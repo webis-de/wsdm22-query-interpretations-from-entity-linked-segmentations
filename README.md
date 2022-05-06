@@ -23,7 +23,7 @@ mvn clean compile
 mvn package
 ```
 
-## Use of the CLI
+## Usage of the CLI
 
 To run the CLI client execute:  
 ```
@@ -42,4 +42,20 @@ java -jar target/query-interpretation-1.0-SNAPSHOT-jar-with-dependencies.jar ent
 java -jar target/query-interpretation-1.0-SNAPSHOT-jar-with-dependencies.jar interpret -q=<query>
 ```
 
+## Cite
 
+If you want to use our tool please cite: 
+
+```
+@InProceedings{kasturia:2022,
+  author =                {Vaibhav Kasturia and Marcel Gohsen and Matthias Hagen},
+  booktitle =             {15th ACM International Conference on Web Search and Data Mining (WSDM 2022)},
+  doi =                   {10.1145/3488560.3498532},
+  month =                 feb,
+  publisher =             {ACM},
+  site =                  {Tempe, AZ, USA},
+  title =                 {{Query Interpretations from Entity-Linked Segmentations}},
+  url =                   {https://dl.acm.org/doi/10.1145/3488560.3498532},
+  year =                  2022
+}
+```
