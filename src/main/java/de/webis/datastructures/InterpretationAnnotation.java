@@ -98,6 +98,6 @@ public class InterpretationAnnotation implements Annotation {
 
     @Override
     public String toString() {
-        return String.join(" ", interpretation) + " | " + relevance;
+        return String.format("%-200s | %2.4f", String.join(" | ", interpretation), relevance);
     }
 }

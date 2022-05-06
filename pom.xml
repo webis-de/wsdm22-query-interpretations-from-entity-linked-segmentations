@@ -7,6 +7,8 @@
 	<groupId>de.webis</groupId>
 	<artifactId>query-interpretation</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -19,16 +21,41 @@
 				<version>2.3.2</version>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<outputDirectory>./target</outputDirectory>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>de.webis.cli.AnnotationCLI</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>de.webis.cli.AnnotationCLI</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
 				<executions>
 					<execution>
-						<id>install-dependencies</id>
-						<phase>install</phase>
-						<configuration>
-							<executable>${project.basedir}/installer/install_all.sh</executable>
-						</configuration>
+						<id>assemble-all</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

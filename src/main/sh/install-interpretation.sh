@@ -8,6 +8,22 @@ CORPORA_PATH="$PROJECT_HOME/data/corpora"
 
 mkdir -p "$DATA_PATH"
 pushd "$DATA_PATH"
+
+if [ ! -d "$DATA_PATH/ngrams" ]
+then
+  wget -nc https://files.webis.de/wsdm22-query-interpretation-data/ngrams.zip
+fi
+
+if [ ! -d "$DATA_PATH/lucene-entity-index" ]
+then
+  wget -nc https://files.webis.de/wsdm22-query-interpretation-data/lucene-entity-index.zip
+fi
+
+if [ ! -d "$DATA_PATH/embeddings" ]
+then
+  wget -nc https://files.webis.de/wsdm22-query-interpretation-data/embeddings.zip
+fi
+
 if [ ! -d "$DATA_PATH/entity-commonness" ]
 then
   wget -nc https://files.webis.de/wsdm22-query-interpretation-data/entity-commonness.zip

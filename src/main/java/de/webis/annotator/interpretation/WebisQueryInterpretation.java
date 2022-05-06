@@ -119,7 +119,6 @@ public class WebisQueryInterpretation implements InterpretationAnnotator {
                 interpretations.add(new InterpretationAnnotation(segmention.getKey().getSegments()));
             }
         }
-        System.out.println("Interpretations: " + interpretations.size());
 
         List<InterpretationAnnotation> sortedInterpretations = new LinkedList<>(interpretations);
         sortedInterpretations.sort(Comparator.comparingDouble(InterpretationAnnotation::getRelevance).reversed());

@@ -7,7 +7,7 @@ import picocli.CommandLine;
  */
 @CommandLine.Command(
         name = "annotate",
-        subcommands = {EntityLinkingCommand.class},
+        subcommands = {EntityLinkingCommand.class, QueryInterpretationCommand.class},
         synopsisSubcommandLabel = "<COMMAND>"
 )
 public class AnnotationCLI implements Runnable{
