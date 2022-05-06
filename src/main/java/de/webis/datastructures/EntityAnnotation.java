@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,17 @@ public class EntityAnnotation implements Annotation {
 
     @Override
     public String toString(){
-        return mention + " -> "+url+" | "+score;
+        String encodedBaseName = null;
+        try {
+            URL urlObj = new URL(url.get(0));
+            encodedBaseName = URLEncoder.encode(
+                    FilenameUtils.getBaseName(urlObj.getPath()),
+                    "utf-8");
+        } catch (MalformedURLException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "https://en.wikipedia.org/wiki/" + encodedBaseName;
+        return String.format("%4d | %4d | %30s | %100s | %2.4f", begin, end, mention, url, score);
     }
 
     @Override
@@ -54,7 +65,7 @@ public class EntityAnnotation implements Annotation {
         try {
             URL urlObj = new URL(url.get(0));
             String encodedBaseName = URLDecoder.decode(
-                    FilenameUtils.getBaseName(urlObj.getPath()),
+                    FilenameUtils.getBaseName(urlObj.getPath()).toLowerCase(),
                     "utf-8");
 
             return encodedBaseName.hashCode();

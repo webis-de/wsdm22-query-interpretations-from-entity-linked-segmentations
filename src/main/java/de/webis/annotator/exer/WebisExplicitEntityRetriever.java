@@ -2,6 +2,7 @@ package de.webis.annotator.exer;
 
 import de.webis.annotator.EntityAnnotator;
 import de.webis.annotator.LoggedAnnotator;
+import de.webis.annotator.exer.strategies.AllNGrams;
 import de.webis.annotator.exer.strategies.ExerStrategy;
 import de.webis.datastructures.EntityAnnotation;
 import de.webis.datastructures.Query;
@@ -22,6 +23,10 @@ public class WebisExplicitEntityRetriever implements EntityAnnotator, LoggedAnno
 
     private final ExerStrategy strategy;
     private final Metric entityCommonness;
+
+    public WebisExplicitEntityRetriever() {
+        this(new AllNGrams());
+    }
 
     public WebisExplicitEntityRetriever(ExerStrategy strategy) {
         this.strategy = strategy;

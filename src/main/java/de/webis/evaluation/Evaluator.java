@@ -5,6 +5,7 @@ import de.webis.annotator.EntityAnnotator;
 import de.webis.annotator.InterpretationAnnotator;
 import de.webis.annotator.LoggedAnnotator;
 import de.webis.annotator.exer.WebisExplicitEntityRetriever;
+import de.webis.annotator.exer.strategies.AllNGrams;
 import de.webis.annotator.exer.strategies.HeuristicSegmentation;
 import de.webis.annotator.interpretation.WebisQueryInterpretation;
 import de.webis.datastructures.*;
@@ -32,10 +33,15 @@ public class Evaluator {
 
         BufferedWriter annotationWriter = null;
         ObjectMapper mapper = new ObjectMapper();
+        File outFile = new File("data/out/webis-qinc-22/evaluation/el/");
+        if(!outFile.exists()){
+            outFile.mkdirs();
+        }
+
         try {
             annotationWriter = new BufferedWriter(
                     new FileWriter(
-                            "data/corpora/corpus-webis-query-interpretation/final/evaluation/el/"
+                            "data/out/webis-qinc-22/evaluation/el/"
                                     + annotator.getAnnotationTag() + ".jsonl"
                     )
             );
@@ -375,8 +381,8 @@ public class Evaluator {
 
 //        Evaluator.evaluateER(new BaselineAnnotator(), new WebisJsonStreamReader(CorpusType.TEST), Task.EXER);
 
-//        Evaluator.evaluateER(new WebisExplicitEntityRetriever(new AllNGrams()),
-//                new WebisJsonStreamReader(CorpusType.TEST), Task.EXER);
+        Evaluator.evaluateER(new WebisExplicitEntityRetriever(new AllNGrams()),
+                new WebisJsonStreamReader(CorpusType.TEST), Task.EXER);
 
 //        Evaluator.evaluateER(new AmbiverseNLU(), new WebisJsonStreamReader(CorpusType.TEST), Task.EXER);
 //        Evaluator.evaluateER(new BabelfyEntityLinker(), new WebisJsonStreamReader(CorpusType.TEST), Task.EXER);
@@ -401,15 +407,15 @@ public class Evaluator {
 
         /* INTERPRETATION EVALUATION **/
 
-        Evaluator.evaluateInterpretation(
-                new WebisQueryInterpretation(),
-                new WebisExplicitEntityRetriever(
-                        new HeuristicSegmentation(
-                                new StrategyWtBaseline(),
-                                0.85)),
-                new WebisJsonStreamReader(CorpusType.TEST),
-                MatchType.PM
-        );
+//        Evaluator.evaluateInterpretation(
+//                new WebisQueryInterpretation(),
+//                new WebisExplicitEntityRetriever(
+//                        new HeuristicSegmentation(
+//                                new StrategyWtBaseline(),
+//                                0.85)),
+//                new WebisJsonStreamReader(CorpusType.TEST),
+//                MatchType.PM
+//        );
 
 //        Evaluator.evaluateInterpretation(new HasibiGIF(), new AmbiverseNLU(), new WebisJsonStreamReader(CorpusType.TEST), MatchType.CM);
 //        Evaluator.evaluateInterpretation(new HasibiGIF(), new BabelfyEntityLinker(), new WebisJsonStreamReader(CorpusType.TEST), MatchType.CM);

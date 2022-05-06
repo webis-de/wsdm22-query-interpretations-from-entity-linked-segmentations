@@ -17,10 +17,10 @@ public class WebisJsonStreamReader extends CorpusStreamReader {
     private Iterator<JsonNode> queryIter;
 
     private static final String CORPUS_TEST_PATH =
-            "./data/corpora/corpus-webis-query-interpretation/final/test/webis-qinc-22-test.json";
+            "./data/corpora/webis-qinc-22/test/webis-qinc-22-test.json";
 
     private static final String CORPUS_TRAIN_PATH =
-            "./data/corpora/corpus-webis-query-interpretation/final/train/webis-qinc-22-train.json";
+            "./data/corpora/webis-qinc-22/train/webis-qinc-22-train.json";
 
     public WebisJsonStreamReader() {
         jsonMapper = new ObjectMapper();
