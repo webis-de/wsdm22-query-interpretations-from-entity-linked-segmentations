@@ -194,7 +194,7 @@
 		<dependency>
 			<groupId>edu.mit.ll</groupId>
 			<artifactId>mitie</artifactId>
-			<version>1.0</version>
+			<version>0.8</version>
 		</dependency>
 
 		<dependency>
