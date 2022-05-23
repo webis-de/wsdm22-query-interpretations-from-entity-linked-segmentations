@@ -34,8 +34,14 @@ then
   wget -nc https://files.webis.de/wsdm22-query-interpretation-data/wiki-entity-index.zip
 fi
 
-unzip '*.zip'
-rm -rf *.zip
+# check if unzip is installed (avoid deleting dataset if not)
+if [ -n "$(which unzip)" ]
+then
+  unzip '*.zip'
+  rm -rf *.zip
+else
+  echo "unzip is not installed. Skip unzipping and deleting archives"
+fi
 popd
 
 mkdir -p "$CORPORA_PATH"
@@ -46,6 +52,12 @@ then
   wget -nc https://zenodo.org/record/5820673/files/webis-qinc-22.zip
 fi
 
-unzip webis-qinc-22.zip -d webis-qinc-22
-rm -rf *.zip
+
+if [ -n "$(which unzip)" ]
+then
+  unzip webis-qinc-22.zip -d webis-qinc-22
+  rm -rf *.zip
+else
+  echo "unzip is not installed. Skip unzipping and deleting archives"
+fi
 popd
